@@ -11,4 +11,4 @@ class AppController {
   }
 }
 
-module.exports = AppControll
+module.exports = AppController;
