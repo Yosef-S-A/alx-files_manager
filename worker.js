@@ -17,3 +17,10 @@ fileQueue.process(async (job, done) => {
   });
 
   if (!requestedFile) done(new Error('File not found'));
+  
+  const sizes = [500, 250, 100];
+  const imgBuffer = fs.readFileSync(requestedFile.localPath);
+  for (const size of sizes) {
+    imageThumbnail(imgBuffer, { width: size })
+      .then((thumbnail) => fs.writeFileSync(`${requestedFile.localPath}_${size}`, thumbnail));
+  }
