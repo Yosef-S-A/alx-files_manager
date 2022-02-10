@@ -17,7 +17,7 @@ fileQueue.process(async (job, done) => {
   });
 
   if (!requestedFile) done(new Error('File not found'));
-  
+
   const sizes = [500, 250, 100];
   const imgBuffer = fs.readFileSync(requestedFile.localPath);
   for (const size of sizes) {
@@ -40,4 +40,3 @@ userQueue.process(async (job, done) => {
   console.log(`Welcome ${user.email}!`);
   done();
 });
-© 2022 GitHub, Inc.
