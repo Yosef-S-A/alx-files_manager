@@ -24,3 +24,20 @@ fileQueue.process(async (job, done) => {
     imageThumbnail(imgBuffer, { width: size })
       .then((thumbnail) => fs.writeFileSync(`${requestedFile.localPath}_${size}`, thumbnail));
   }
+
+  done();
+});
+
+const userQueue = Queue('userQueue');
+
+userQueue.process(async (job, done) => {
+  const { userId } = job.data;
+  if (!userId) done(new Error('Missing userId'));
+
+  const user = await dbClient.users.findOne({ _id: ObjectId(userId) });
+  if (!user) done(new Error('User not found'));
+
+  console.log(`Welcome ${user.email}!`);
+  done();
+});
+© 2022 GitHub, Inc.
